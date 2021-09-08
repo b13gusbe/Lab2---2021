@@ -15,6 +15,7 @@ namespace Lab2___Butik
             allProducts.Add(new Product("Apple", 10));
             allProducts.Add(new Product("Orange", 15));
             allProducts.Add(new Product("Banana", 20));
+            allProducts.Add(new Product("Papaya", 25));
 
 
             //Console.WriteLine(allProducts[0].ToString());
