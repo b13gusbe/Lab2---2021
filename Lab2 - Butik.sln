@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2 - Butik", "Lab2 - Butik\Lab2 - Butik.csproj", "{4138FB2B-8187-4135-861A-5AC807256759}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4138FB2B-8187-4135-861A-5AC807256759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4138FB2B-8187-4135-861A-5AC807256759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4138FB2B-8187-4135-861A-5AC807256759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4138FB2B-8187-4135-861A-5AC807256759}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D5AC783-AA12-4F2C-ACDC-D38C1A6F7EFE}
+	EndGlobalSection
+EndGlobal
