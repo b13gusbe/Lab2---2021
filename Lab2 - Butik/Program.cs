@@ -22,28 +22,35 @@ namespace Lab2___Butik
 
             //Console.WriteLine(allProducts[0].ToString());
 
-            allCustomers = drawLoginScreen(allCustomers);
+            int menuChoice = drawMenu();
 
 
         }
 
 
-        private static List<Customer> drawLoginScreen(List<Customer> allCustomers)
+        private static int drawMenu()
         {
-            string p1 = "############################################################################";
-            string p2 = "#                                                                          #";
-            Console.WriteLine(p1 + "\n" + p2 + "\n" + p2 + "\n" + p2 + "\n#             Welcome to this \"online\" luxurious fruit store               #" + "\n" + p2 + "\n" + p2 + "\n" + p2);
-            
+            ConsoleKeyInfo cki;
+            string p1 = "############################################################################\n";
+            string p2 = "#                                                                          #\n";
 
+            Console.WriteLine(p1 + p2 + p2 + p2 + "#             Welcome to this \"online\" luxurious fruit store               #\n" + p2 + "#                                                                          #");
+            Console.WriteLine("#             Please select one of the following alternetives:             #\n" + "#                                                                          #");
+            Console.WriteLine("#             (1) Log in                                                   #");
+            Console.WriteLine("#             (2) Create user                                              #");
+            Console.WriteLine("#             (3) Exit store                                               #\n" + p2 + p1);
 
+            do
+            {
+                cki = Console.ReadKey();
+                if(cki.Key != ConsoleKey.D1 && cki.Key != ConsoleKey.D2 && cki.Key != ConsoleKey.D3)
+                {
+                    Console.WriteLine(" Please enter one of the listed alternatives.");
+                } else if(cki.Key == ConsoleKey.D1){ return 1; }
+                else if(cki.Key == ConsoleKey.D2) { return 2; }
+                else if (cki.Key == ConsoleKey.D3) { return 3; }
+            } while (true);
 
-
-
-
-
-
-
-            return allCustomers;
         }
 
         private static void drawStore(List<Product> allProducts, List<Customer> allCustomers)
