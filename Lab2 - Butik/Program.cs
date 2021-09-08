@@ -17,6 +17,8 @@ namespace Lab2___Butik
             allProducts.Add(new Product("Banana", 20));
             allProducts.Add(new Product("Papaya", 25));
 
+            blalbaas adaf
+
 
             //Console.WriteLine(allProducts[0].ToString());
 
