@@ -30,10 +30,17 @@ namespace Lab2___Butik
             if(menuChoice == 1) { drawLogIn(allCustomers); }
             else if (menuChoice == 2) { }
 
-            testar git
             */
 
-            drawLogIn(allCustomers);
+            /*
+            Customer logedInCustomer = drawLogIn(allCustomers);
+            logedInCustomer.AddToCart(allProducts[0]);
+            Console.WriteLine(logedInCustomer.cart[0].name);
+            */
+
+            drawStore(allProducts, testCustomer);
+
+
         }
 
 
@@ -62,7 +69,7 @@ namespace Lab2___Butik
 
         }
 
-        private static void drawLogIn(List<Customer> allCustomers)
+        private static Customer drawLogIn(List<Customer> allCustomers)
         {
             ConsoleKeyInfo cki;
             Console.Clear();
@@ -77,6 +84,12 @@ namespace Lab2___Butik
 
                     Console.WriteLine("\nPlease enter password for {0}:", nameInput);
                     string passwordInput = Console.ReadLine();
+                    if (logedInCustomer.LogIn(passwordInput))
+                    {
+                        Console.WriteLine("Log in lyckades.");
+                        return logedInCustomer;
+                    }
+                    else { Console.WriteLine("Log in FAIL"); }
 
 
                 }
@@ -112,9 +125,9 @@ namespace Lab2___Butik
 
         }
 
-        private static void drawStore(List<Product> allProducts, List<Customer> allCustomers)
+        private static void drawStore(List<Product> allProducts, Customer logedInCustomer)
         {
-
+            Console.WriteLine(p1 + p2 + "#         The store currently offers the following products:       #");
         }
 
 

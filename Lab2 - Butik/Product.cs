@@ -8,7 +8,7 @@ namespace Lab2___Butik
 {
     class Product
     {
-        private string name { get; set; }
+        public string name { get; set; }
         private int price { get; set; }
 
         public Product(string name, int price)

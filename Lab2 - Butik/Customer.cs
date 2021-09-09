@@ -11,7 +11,7 @@ namespace Lab2___Butik
         public string username { get; private set; }
         private string password { get; set; }
 
-        private List<Product> cart;
+        public List<Product> cart;
         public Customer(string username, string password)
         {
             this.username = username;
@@ -19,6 +19,18 @@ namespace Lab2___Butik
             this.cart = new List<Product>();
         }
 
+
+        public bool LogIn (string password)
+        {
+            if(this.password == password) { return true; }
+            else { return false; }
+        }
+
+        public void AddToCart( Product product)
+        {
+            this.cart.Add(product);
+            Console.WriteLine("{0} added to cart.", product.name);
+        }
 
 
 
