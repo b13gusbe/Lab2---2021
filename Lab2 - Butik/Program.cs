@@ -29,6 +29,8 @@ namespace Lab2___Butik
 
             if(menuChoice == 1) { drawLogIn(allCustomers); }
             else if (menuChoice == 2) { }
+
+            testar git
             */
 
             drawLogIn(allCustomers);
