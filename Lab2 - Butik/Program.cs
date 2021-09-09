@@ -7,6 +7,7 @@ namespace Lab2___Butik
     {
         static string p1 = "############################################################################\n";
         static string p2 = "#                                                                          #\n";
+        static string p3 = "#             ";
 
         static void Main(string[] args) {
 
@@ -24,13 +25,13 @@ namespace Lab2___Butik
 
 
             //Console.WriteLine(allProducts[0].ToString());
-            /*
+            
             int menuChoice = drawMenu();
 
             if(menuChoice == 1) { drawLogIn(allCustomers); }
             else if (menuChoice == 2) { }
 
-            */
+            
 
             /*
             Customer logedInCustomer = drawLogIn(allCustomers);
@@ -38,7 +39,7 @@ namespace Lab2___Butik
             Console.WriteLine(logedInCustomer.cart[0].name);
             */
 
-            drawStore(allProducts, testCustomer);
+            //drawStore(allProducts, testCustomer);
 
 
         }
@@ -51,10 +52,10 @@ namespace Lab2___Butik
             //string p2 = "#                                                                          #\n";
             Console.Clear();
             Console.WriteLine(p1 + p2 + p2 + p2 + "#             Welcome to this \"online\" luxurious fruit store               #\n" + p2 + "#                                                                          #");
-            Console.WriteLine("#             Please select one of the following alternetives:             #\n" + "#                                                                          #");
-            Console.WriteLine("#             (1) Log in                                                   #");
-            Console.WriteLine("#             (2) Create user                                              #");
-            Console.WriteLine("#             (3) Exit store                                               #\n" + p2 + p1);
+            Console.WriteLine(p3 + "Please select one of the following alternetives:             #\n" + "#                                                                          #");
+            Console.WriteLine(p3 + "(1) Log in                                                   #");
+            Console.WriteLine(p3 + "(2) Create user                                              #");
+            Console.WriteLine(p3 + "(3) Exit store                                               #\n" + p2 + p1);
 
             do
             {
