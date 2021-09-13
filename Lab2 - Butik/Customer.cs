@@ -32,8 +32,20 @@ namespace Lab2___Butik
             Console.WriteLine("{0} added to cart.", product.name);
         }
 
+        public int CartCount()
+        {
+            return this.cart.Count;
+        }
 
-
+        public int CartCost()
+        {
+            int totalCost = 0;
+            foreach (Product product in this.cart)
+            {
+                totalCost += product.Price();
+            }
+            return totalCost;
+        }
 
 
     }

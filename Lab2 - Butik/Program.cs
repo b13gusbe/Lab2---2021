@@ -5,9 +5,9 @@ namespace Lab2___Butik
 {
     class Program
     {
-        static string p1 = "############################################################################\n";
-        static string p2 = "#                                                                          #\n";
-        static string p3 = "#             ";
+        static string p1 = "############################################################################";
+        static string p2 = "#                                                                          #";
+        static string p3 = "#         ";
 
         static void Main(string[] args) {
 
@@ -16,22 +16,24 @@ namespace Lab2___Butik
             List<Product> allProducts = new List<Product>();
             List<Customer> allCustomers = new List<Customer>();
 
-            allProducts.Add(new Product("Apple", 10));
-            allProducts.Add(new Product("Orange", 15));
-            allProducts.Add(new Product("Banana", 20));
+            allProducts.Add(new Product("Apple", 1));
+            allProducts.Add(new Product("Orange", 5));
+            allProducts.Add(new Product("Banana", 2));
             allProducts.Add(new Product("Papaya", 25));
+            allProducts.Add(new Product("Kiwi", 13));
+
 
             allCustomers.Add(testCustomer);
 
 
             //Console.WriteLine(allProducts[0].ToString());
-            
+            /*
             int menuChoice = drawMenu();
 
             if(menuChoice == 1) { drawLogIn(allCustomers); }
             else if (menuChoice == 2) { }
+            */
 
-            
 
             /*
             Customer logedInCustomer = drawLogIn(allCustomers);
@@ -40,6 +42,21 @@ namespace Lab2___Butik
             */
 
             //drawStore(allProducts, testCustomer);
+
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[1]);
+            /*
+            testCustomer.AddToCart(allProducts[2]);
+            testCustomer.AddToCart(allProducts[2]);
+            
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[0]);
+            testCustomer.AddToCart(allProducts[0]);
+            */
+            drawViewCart(testCustomer);
 
 
         }
@@ -128,7 +145,69 @@ namespace Lab2___Butik
 
         private static void drawStore(List<Product> allProducts, Customer logedInCustomer)
         {
-            Console.WriteLine(p1 + p2 + "#         The store currently offers the following products:       #");
+            ConsoleKeyInfo cki;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine(p1 + "\n" + p2 + "\n" + p3 + "    The store currently offers the following products:           #" + "\n" + p2);
+                for (int i = 0; i < allProducts.Count; i++)
+                {
+                    if (i > 8) { Console.Write(p3 + "(" + (i + 1) + ") " + allProducts[i].name); }
+                    else { Console.Write(p3 + "(" + (i + 1) + ") " + allProducts[i].name); }
+                    for (int i2 = 0; i2 < 48 - allProducts[i].name.Length; i2++)
+                    {
+                        Console.Write(".");
+                    }
+                    Console.Write("$" + allProducts[i].Price() + "          #\n");
+                }
+                Console.Write(p2 + "\n" + p3 + "(" + (allProducts.Count + 1) + ") Leave store                           (" + (allProducts.Count + 2) + ") View Cart          #\n" + p2 + "\n" + p1);
+                Console.WriteLine("\nLogged in as: " + logedInCustomer.username + "                           Number of items in cart: " + logedInCustomer.CartCount() + "\n");
+                cki = Console.ReadKey();
+
+                if (char.IsDigit(cki.KeyChar))
+                {
+                    int i = int.Parse(cki.KeyChar.ToString());
+                    if (i > 0 && i < (allProducts.Count + 1))
+                    {
+                        logedInCustomer.AddToCart(allProducts[i-1]);
+                    } else if ( i == allProducts.Count + 1)
+                    {
+                        break;
+                    } else if ( i == allProducts.Count + 2)
+                    {
+                        drawViewCart(logedInCustomer);
+                    }
+                }
+
+
+            } while (true);
+
+        }
+
+
+        private static void drawViewCart(Customer customer)
+        {
+            Console.Clear();
+            Console.Write(p1 + "\n" + p2 + "\n" + p3 + "    Items in cart:                                               #\n" + p2 + "\n");
+
+            for (int i = 0; i < customer.CartCount(); i++)
+            {
+                if (i > 8) { Console.Write("#        (" + (i + 1) + ") " + customer.cart[i].name); }
+                else { Console.Write(p3 + "(" + (i + 1) + ") " + customer.cart[i].name); }
+                for (int i2 = 0; i2 < 48 -customer.cart[i].name.Length; i2++)
+                {
+                    Console.Write(".");
+                }
+                Console.Write("$" + customer.cart[i].Price() + "          #\n");
+            }
+            int cartCost = customer.CartCost();
+            if (cartCost < 10) { Console.Write(p2 + "\n#                                                  Total cost: ${0}          #\n", cartCost); }
+            else if (cartCost < 100) { Console.Write(p2 + "\n#                                                 Total cost: ${0}          #\n", cartCost); }
+            else if (cartCost < 1000) { Console.Write(p2 + "\n#                                                Total cost: ${0}          #\n", cartCost); }
+
+            Console.Write(p2 + "\n" + p3 + "({0}) Go back to Store                  ({1}) Purchase items         #\n" + p2 + "\n" + p1, customer.CartCount()+1, customer.CartCount()+2);
+            
+            
         }
 
 

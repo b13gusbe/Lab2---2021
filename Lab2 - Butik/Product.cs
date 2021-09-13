@@ -22,6 +22,11 @@ namespace Lab2___Butik
             return name.ToString();
         }
 
+        public int Price()
+        {
+            return this.price;
+        }
+
 
 
     }
