@@ -37,12 +37,12 @@ namespace Lab2___Butik
             return this.cart.Count;
         }
 
-        public int CartCost()
+        public int CartCost(string currency)
         {
             int totalCost = 0;
             foreach (Product product in this.cart)
             {
-                totalCost += product.Price();
+                totalCost += product.Price(currency);
             }
             return totalCost;
         }

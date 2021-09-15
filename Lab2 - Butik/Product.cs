@@ -22,9 +22,19 @@ namespace Lab2___Butik
             return name.ToString();
         }
 
-        public int Price()
+        public int Price(string currency)
         {
-            return this.price;
+            if(currency == "$")
+            {
+                return this.price;
+            } else if (currency == "SEK")
+            {
+                return (this.price * 10);
+            } else
+            {
+                return 0;
+            }
+            
         }
 
 
