@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Lab2___Butik
 {
@@ -8,6 +11,8 @@ namespace Lab2___Butik
         static string p1 = "############################################################################";
         static string p2 = "#                                                                          #";
         static string p3 = "#         ";
+
+        static readonly string filePath = (Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SavedCustomers.doesitreallymatter");
 
         static void Main(string[] args) {
 
@@ -27,15 +32,32 @@ namespace Lab2___Butik
 
             allCustomers.Add(testCustomer);
 
+            List<Customer> savedCustomers = LoadCustomers();
+            allCustomers.AddRange(savedCustomers);
+
+            foreach(Customer customer in allCustomers)
+            {
+                Console.Write($"{customer.username} : ");
+                foreach(Product product in customer.cart)
+                {
+                    Console.Write($"{product.name} ");
+                }
+                Console.Write("\n");
+            }
+
+            Console.ReadKey();
 
             //Console.WriteLine(allProducts[0].ToString());
-            
+
+
+            /*
             int menuChoice = drawMenu();
             Customer logedInCustomer;
 
             if(menuChoice == 1) { drawStore(allProducts, logedInCustomer = drawLogIn(allCustomers), currency); }
             else if (menuChoice == 2) { Console.WriteLine("SKAPA ANVÄNDARE inte impelenterad"); }
             else if (menuChoice == 3) { Environment.Exit(0); }
+            */
 
             //drawStore(allProducts, logedInCustomer);
 
@@ -49,7 +71,7 @@ namespace Lab2___Butik
             //drawStore(allProducts, testCustomer);
 
             
-            /*
+            
             testCustomer.AddToCart(allProducts[2]);
             testCustomer.AddToCart(allProducts[2]);
             
@@ -58,7 +80,9 @@ namespace Lab2___Butik
             testCustomer.AddToCart(allProducts[0]);
             testCustomer.AddToCart(allProducts[0]);
             testCustomer.AddToCart(allProducts[0]);
-            */
+
+            SaveCustomers(allCustomers);
+
             drawViewCart(testCustomer, currency);
 
 
@@ -224,6 +248,32 @@ namespace Lab2___Butik
             } while (true);
             
             
+        }
+
+
+        private static void SaveCustomers(List<Customer> customers)
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+
+            formatter.Serialize(stream, customers);
+            stream.Close();
+        }
+
+        private static List<Customer> LoadCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            if (File.Exists(filePath))
+            {
+                IFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+
+                customers = (List<Customer>)formatter.Deserialize(stream);
+                stream.Close();
+            }
+
+            return customers;
         }
 
 

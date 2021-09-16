@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab2___Butik
 {
+    [Serializable]
     class Product
     {
         public string name { get; set; }
