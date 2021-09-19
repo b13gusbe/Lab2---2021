@@ -25,12 +25,15 @@ namespace Lab2___Butik
 
         public int Price(string currency)
         {
-            if(currency == "$")
+            if (currency == "$")
             {
                 return this.price;
-            } else if (currency == "SEK")
+            } else if (currency == "SEK ")
             {
                 return (this.price * 10);
+            } else if (currency == "£") 
+            {
+                return (this.price * 11);
             } else
             {
                 return 0;
