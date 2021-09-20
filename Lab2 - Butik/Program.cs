@@ -29,8 +29,11 @@ namespace Lab2___Butik
 
             string currency = "$";
 
+            Customer testCustomer2 = new GoldCustomer("test", "123");
 
             allCustomers.Add(testCustomer);
+            allCustomers.Add(testCustomer2);
+
 
             /*
             List<Customer> savedCustomers = LoadCustomers();
@@ -79,6 +82,8 @@ namespace Lab2___Butik
             */
 
             //drawStore(allProducts, testCustomer);
+            
+            //Test(allCustomers);
 
             DrawMainMenu(allCustomers, allProducts, currency);
 
@@ -110,6 +115,7 @@ namespace Lab2___Butik
             do
             {
                 Console.Clear();
+                Console.SetCursorPosition(0, 0);
                 Console.WriteLine(p1 + "\n               Welcome to this \"online\" luxurious fruit store\n");
                 Console.WriteLine(p2 + "Please select one of the following alternetives:\n");
                 Console.WriteLine(p2 + "(1) Log in");
@@ -121,7 +127,7 @@ namespace Lab2___Butik
                 {
                     Console.WriteLine(" Please enter one of the listed alternatives.");
                 } else if(cki.Key == ConsoleKey.D1){ DrawLogIn(allCustomers, allProducts, currency); }
-                else if(cki.Key == ConsoleKey.D2) { DrawCreateUser(allCustomers, allProducts, currency); }
+                else if(cki.Key == ConsoleKey.D2) { Test(allCustomers); }
                 else if (cki.Key == ConsoleKey.D3) { Environment.Exit(0); }
             } while (true);
 
@@ -192,6 +198,8 @@ namespace Lab2___Butik
             do
             {
                 Console.Write("Enter new Username: ");
+                Console.SetCursorPosition(10, 3);
+
                 string username = Console.ReadLine();
                 Customer logedInCustomer = allCustomers.Find(customer => customer.username == username);
                 if (logedInCustomer != null)
@@ -305,10 +313,11 @@ namespace Lab2___Butik
                 List<Product> printItems;
                 String s;
                 double totalPrice = 0;
-                
 
-                do
+
+                while (cartItems.Count != 0)
                 {
+
                     printItems = cartItems.FindAll(products => products.name == cartItems[0].name);
                     Console.Write(s = (p2 + $"{printItems[0].name} (x{printItems.Count()})"));
 
@@ -323,31 +332,27 @@ namespace Lab2___Butik
 
                     cartItems.RemoveRange(0, printItems.Count());
 
-
-                } while (cartItems.Count != 0);
+                }
 
                 Console.Write($"\n                                                         Total: {currency}{totalPrice}\n");
 
 
-                Console.Write("                                                 Bronze member: -5%\n\n");
-                Console.WriteLine($"                                                     New Total: {currency}{totalPrice * 0.95}\n");
 
-
-                //if (logedInCustomer == bronze)
-                //{
-                //    Console.WriteLine("Bronze member: -5%\n\n");
-                //    Console.WriteLine($"New Total: {currency}{totalPrice*0.95}");
-                //}
-                //else if (logedInCustomer == silver)
-                //{
-                //    Console.WriteLine("Silver member: -10%\n\n");
-                //    Console.WriteLine($"New Total: {currency}{totalPrice * 0.90}");
-                //}
-                //else if (logedInCustomer == gold)
-                //{
-                //    Console.WriteLine("Gold member: -15%\n\n");
-                //    Console.WriteLine($"New Total: {currency}{totalPrice * 0.85}");
-                //}
+                if (logedInCustomer.GetType().Equals(typeof(BronzeCustomer)))
+                {
+                    Console.Write("                                                 Bronze member: -5%\n\n");
+                    Console.WriteLine($"                                                     New Total: {currency}{(totalPrice * 0.95).ToString("N2")}\n");
+                }
+                else if (logedInCustomer.GetType().Equals(typeof(SilverCustomer)))
+                {
+                    Console.Write("                                                 Silver member: -10%\n\n");
+                    Console.WriteLine($"                                                     New Total: {currency}{(totalPrice * 0.90).ToString("N2")}\n");
+                }
+                else if (logedInCustomer.GetType().Equals(typeof(GoldCustomer)))
+                {
+                    Console.Write("                                                   Gold member: -15%\n\n");
+                    Console.WriteLine($"                                                     New Total: {currency}{(totalPrice * 0.85).ToString("N2")}\n");
+                }
 
                 Console.WriteLine("\n           (G)o Back                                 (B)uy Fruits\n\n" + p1);
 
@@ -362,7 +367,7 @@ namespace Lab2___Butik
                     break;
                 } else if (cki.Key == ConsoleKey.B)
                 {
-                    Console.WriteLine("You bought all the fruits! Congratulations!! You Won!!!");
+                    Console.WriteLine("\nYou bought all the fruits! Congratulations!! You Won!!!");
                     Console.ReadKey();
                 }
 
@@ -375,6 +380,179 @@ namespace Lab2___Butik
 
         private static void DrawCheckout(Customer logedInCustomer, string currency)
         {
+
+        }
+
+        public static void Test(List<Customer> allCustomers)
+        {
+            string memberType = "Basic";
+            ConsoleKeyInfo cki;
+
+            string user = "";
+            string pass = "";
+            Console.Clear();
+            Console.WriteLine(p1 + "\n                       Create new customer account");
+            Console.WriteLine("                                                      (Tab)");
+            Console.WriteLine("                                                 Membership Type:");
+            Console.WriteLine(p2 + "Username:");
+            Console.WriteLine(p2 + "Password:                                 [ Basic ]");
+            Console.WriteLine("                                                      Bronze");
+            Console.WriteLine(p2 + "                                            Silver");
+            Console.WriteLine("                                                      Gold");
+            Console.WriteLine("            Go Back\n             (Esc)\n\n" + p1);
+
+
+            bool userNameAccepted = false;
+            do
+            {
+
+                if (!userNameAccepted)
+                {
+                    Console.SetCursorPosition(20, 5);
+                    Console.Write(user + "                  ");
+                    Console.SetCursorPosition((20 + user.Length), 5);
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, 6);
+                    Console.Write(pass + "                  ");
+                    Console.SetCursorPosition((20 + pass.Length), 6);
+                }
+
+                cki = Console.ReadKey();
+                if (cki.Key == ConsoleKey.Tab)
+                {
+                    switch (memberType)
+                    {
+                        case "Basic":
+                            memberType = "Bronze";
+                            Console.SetCursorPosition(52, 6);
+                            Console.Write("  Basic  ");
+                            Console.SetCursorPosition(52, 7);
+                            Console.Write("[ Bronze ]");
+                            break;
+
+                        case "Bronze":
+                            memberType = "Silver";
+                            Console.SetCursorPosition(52, 7);
+                            Console.Write("  Bronze  ");
+                            Console.SetCursorPosition(52, 8);
+                            Console.Write("[ Silver ]");
+                            break;
+                        case "Silver":
+                            memberType = "Gold";
+                            Console.SetCursorPosition(52, 8);
+                            Console.Write("  Silver  ");
+                            Console.SetCursorPosition(52, 9);
+                            Console.Write("[ Gold ]");
+                            break;
+                        case "Gold":
+                            memberType = "Basic";
+                            Console.SetCursorPosition(52, 9);
+                            Console.Write("  Gold  ");
+                            Console.SetCursorPosition(52, 6);
+                            Console.Write("[ Basic ]");
+                            break;
+                    }
+                }
+                else if (cki.Key == ConsoleKey.Backspace)
+                {
+                    if (!userNameAccepted)
+                    {
+                        if (user != "")
+                        {
+                            user = user.Remove(user.Length - 1);
+                            //Console.Write(" ");
+                        }
+                    }
+                    else
+                    {
+                        if (pass != "")
+                        {
+                            pass = pass.Remove(pass.Length - 1);
+                            //Console.Write(" ");
+
+                        }
+
+                    }
+
+                }
+                else if (cki.Key == ConsoleKey.Enter)
+                {
+                    if (!userNameAccepted)
+                    {
+
+                        Customer createCustomer = allCustomers.Find(customer => customer.username == user);
+                        if (createCustomer != null)
+                        {
+                            Console.SetCursorPosition(10, 8);
+                            Console.Write($"The username {user} already exists.");
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(10, 8);
+                            Console.Write($"                                    ");
+                            userNameAccepted = true;
+                        }
+                    }
+                    else
+                    {
+                        switch (memberType)
+                        {
+                            case "Basic":
+                                allCustomers.Add(new Customer(user, pass));
+                                //SaveCustomers(allCustomers);
+                                Console.SetCursorPosition(10, 8);
+                                Console.Write($"Customer {user} Created.");
+                                break;
+                            case "Bronze":
+                                allCustomers.Add(new BronzeCustomer(user, pass));
+                                //SaveCustomers(allCustomers);
+                                Console.SetCursorPosition(10, 8);
+                                Console.Write($"Bronze customer {user} Created.");
+                                break;
+                            case "Silver":
+                                allCustomers.Add(new SilverCustomer(user, pass));
+                                //SaveCustomers(allCustomers);
+                                Console.SetCursorPosition(10, 8);
+                                Console.Write($"Silver customer {user} Created.");
+                                break;
+                            case "Gold":
+                                allCustomers.Add(new GoldCustomer(user, pass));
+                                //SaveCustomers(allCustomers);
+                                Console.SetCursorPosition(10, 8);
+                                Console.Write($"Gold customer {user} Created.");
+                                break;
+                        }
+                        user = "";
+                        pass = "";
+                        Console.SetCursorPosition(20, 6);
+                        Console.Write("                        ");
+                        userNameAccepted = false;
+
+                    }
+
+                }
+                else if (cki.Key == ConsoleKey.Escape)
+                {
+                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
+                    break;
+                }
+                else if (char.IsLetterOrDigit(cki.KeyChar))
+                {
+                    if (!userNameAccepted)
+                    {
+                        user = user + cki.KeyChar;
+                    }
+                    else
+                    {
+                        pass = pass + cki.KeyChar;
+                    }
+
+                }
+
+            } while (true);
 
         }
 
