@@ -115,12 +115,16 @@ namespace Lab2___Butik
             do
             {
                 Console.Clear();
-                Console.SetCursorPosition(0, 0);
-                Console.WriteLine(p1 + "\n               Welcome to this \"online\" luxurious fruit store\n");
-                Console.WriteLine(p2 + "Please select one of the following alternetives:\n");
-                Console.WriteLine(p2 + "(1) Log in");
-                Console.WriteLine(p2 + "(2) Create new customer account");
-                Console.WriteLine(p2 + "(3) Exit store\n\n" + p1);
+                Console.WriteLine(p1 + "\n               Welcome to this \"online\" luxuriöus fruit store\n");
+                Console.WriteLine(p2 + "Please select one of the following alternetives:    ,--./,-.");
+                Console.WriteLine("                                                             / #      \\");
+                Console.WriteLine(p2 + "(1) Log in                                        |          |");
+                Console.WriteLine(p2 + "(2) Create new customer account                    \\        /");
+                Console.WriteLine(p2 + "(3) Exit store                                      `._,._,'\n\n" + p1);
+
+                DrawBorders(9);
+                
+
 
                 cki = Console.ReadKey();
                 if(cki.Key != ConsoleKey.D1 && cki.Key != ConsoleKey.D2 && cki.Key != ConsoleKey.D3)
@@ -274,6 +278,7 @@ namespace Lab2___Butik
                 }
                 Console.Write(p2 + "\n" + p2 + "(" + (allProducts.Count + 1) + ") Leave store                           (" + (allProducts.Count + 2) + ") View Cart\n\n" + p1);
                 Console.WriteLine("\nLogged in as: " + logedInCustomer.username + "                           Number of items in cart: " + logedInCustomer.CartCount() + "\n");
+                DrawBorders(6 + allProducts.Count());
                 cki = Console.ReadKey();
 
                 if (char.IsDigit(cki.KeyChar))
@@ -356,6 +361,8 @@ namespace Lab2___Butik
 
                 Console.WriteLine("\n           (G)o Back                                 (B)uy Fruits\n\n" + p1);
 
+                DrawBorders(13 + 3 * logedInCustomer.cart.Count());
+
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.C)
                 {
@@ -400,6 +407,7 @@ namespace Lab2___Butik
             Console.WriteLine(p2 + "                                            Silver");
             Console.WriteLine("                                                      Gold");
             Console.WriteLine("            Go Back\n             (Esc)\n\n" + p1);
+            DrawBorders(12);
 
 
             bool userNameAccepted = false;
@@ -535,8 +543,8 @@ namespace Lab2___Butik
                 }
                 else if (cki.Key == ConsoleKey.Escape)
                 {
-                    Console.Clear();
-                    Console.SetCursorPosition(0, 0);
+                    Console.WriteLine("Bullen");
+                    
                     break;
                 }
                 else if (char.IsLetterOrDigit(cki.KeyChar))
@@ -583,6 +591,19 @@ namespace Lab2___Butik
             return customers;
         }
 
+
+
+
+        private static void DrawBorders(int rows)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                Console.SetCursorPosition(0, i + 1);
+                Console.Write("#");
+                Console.SetCursorPosition(75, i+1);
+                Console.Write("#");
+            }
+        }
 
 
     }
