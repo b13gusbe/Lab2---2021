@@ -35,6 +35,8 @@ namespace Lab2___Butik
             allCustomers.Add(testCustomer2);
 
 
+
+
             /*
             List<Customer> savedCustomers = LoadCustomers();
             allCustomers.AddRange(savedCustomers);
@@ -82,8 +84,10 @@ namespace Lab2___Butik
             */
 
             //drawStore(allProducts, testCustomer);
-            
+
             //Test(allCustomers);
+
+            Test2();
 
             DrawMainMenu(allCustomers, allProducts, currency);
 
@@ -395,8 +399,8 @@ namespace Lab2___Butik
             string memberType = "Basic";
             ConsoleKeyInfo cki;
 
-            string user = "";
-            string pass = "";
+            string username = "";
+            string password = "";
             Console.Clear();
             Console.WriteLine(p1 + "\n                       Create new customer account");
             Console.WriteLine("                                                      (Tab)");
@@ -417,14 +421,14 @@ namespace Lab2___Butik
                 if (!userNameAccepted)
                 {
                     Console.SetCursorPosition(20, 5);
-                    Console.Write(user + "                  ");
-                    Console.SetCursorPosition((20 + user.Length), 5);
+                    Console.Write(username + "                  ");
+                    Console.SetCursorPosition((20 + username.Length), 5);
                 }
                 else
                 {
                     Console.SetCursorPosition(20, 6);
-                    Console.Write(pass + "                  ");
-                    Console.SetCursorPosition((20 + pass.Length), 6);
+                    Console.Write(password + "                  ");
+                    Console.SetCursorPosition((20 + password.Length), 6);
                 }
 
                 cki = Console.ReadKey();
@@ -467,17 +471,17 @@ namespace Lab2___Butik
                 {
                     if (!userNameAccepted)
                     {
-                        if (user != "")
+                        if (username != "")
                         {
-                            user = user.Remove(user.Length - 1);
+                            username = username.Remove(username.Length - 1);
                             //Console.Write(" ");
                         }
                     }
                     else
                     {
-                        if (pass != "")
+                        if (password != "")
                         {
-                            pass = pass.Remove(pass.Length - 1);
+                            password = password.Remove(password.Length - 1);
                             //Console.Write(" ");
 
                         }
@@ -490,11 +494,11 @@ namespace Lab2___Butik
                     if (!userNameAccepted)
                     {
 
-                        Customer createCustomer = allCustomers.Find(customer => customer.username == user);
+                        Customer createCustomer = allCustomers.Find(customer => customer.username == username);
                         if (createCustomer != null)
                         {
                             Console.SetCursorPosition(10, 8);
-                            Console.Write($"The username {user} already exists.");
+                            Console.Write($"The username {username} already exists.");
                         }
                         else
                         {
@@ -508,32 +512,32 @@ namespace Lab2___Butik
                         switch (memberType)
                         {
                             case "Basic":
-                                allCustomers.Add(new Customer(user, pass));
+                                allCustomers.Add(new Customer(username, password));
                                 //SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
-                                Console.Write($"Customer {user} Created.");
+                                Console.Write($"Customer {username} Created.");
                                 break;
                             case "Bronze":
-                                allCustomers.Add(new BronzeCustomer(user, pass));
+                                allCustomers.Add(new BronzeCustomer(username, password));
                                 //SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
-                                Console.Write($"Bronze customer {user} Created.");
+                                Console.Write($"Bronze customer {username} Created.");
                                 break;
                             case "Silver":
-                                allCustomers.Add(new SilverCustomer(user, pass));
+                                allCustomers.Add(new SilverCustomer(username, password));
                                 //SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
-                                Console.Write($"Silver customer {user} Created.");
+                                Console.Write($"Silver customer {username} Created.");
                                 break;
                             case "Gold":
-                                allCustomers.Add(new GoldCustomer(user, pass));
+                                allCustomers.Add(new GoldCustomer(username, password));
                                 //SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
-                                Console.Write($"Gold customer {user} Created.");
+                                Console.Write($"Gold customer {username} Created.");
                                 break;
                         }
-                        user = "";
-                        pass = "";
+                        username = "";
+                        password = "";
                         Console.SetCursorPosition(20, 6);
                         Console.Write("                        ");
                         userNameAccepted = false;
@@ -551,17 +555,127 @@ namespace Lab2___Butik
                 {
                     if (!userNameAccepted)
                     {
-                        user = user + cki.KeyChar;
+                        username = username + cki.KeyChar;
                     }
                     else
                     {
-                        pass = pass + cki.KeyChar;
+                        password = password + cki.KeyChar;
                     }
 
                 }
 
             } while (true);
 
+        }
+
+
+        public static void Test2()
+        {
+            Console.WriteLine(p1 + "\n           .-.                     Log in                    .-.");
+            Console.WriteLine("          /  |                                               |  \\");
+            Console.WriteLine("         |  /      Username:                                  \\  |");
+            Console.WriteLine("      .'\\|.-; _    Password:                                _ ;-.|/'.");
+            Console.WriteLine("     /.-.;\\  |\\|                                           |/|  /;.-.\\");
+            Console.WriteLine("     '   |'._/ `                                           ´ \\_.'|   '");
+            Console.WriteLine("         |  \\                                                 /  |");
+            Console.WriteLine("          \\  |      Go back                                   |  /");
+            Console.WriteLine("           '-'       (ESC)                                    '-'\n\n" +p1);
+
+            DrawBorders(11);
+
+            bool userNameAccepted = false;
+
+            string username = "";
+            string password = "";
+
+            ConsoleKeyInfo cki;
+
+            do
+            {
+
+                if (!userNameAccepted)
+                {
+                    Console.SetCursorPosition(29, 4);
+                    Console.Write(username + "                  ");
+                    Console.SetCursorPosition((29 + username.Length), 4);
+                }
+                else
+                {
+                    Console.SetCursorPosition(29, 5);
+                    Console.Write(password + "                  ");
+                    Console.SetCursorPosition((29 + password.Length), 5);
+                }
+
+
+                cki = Console.ReadKey();
+                if (char.IsLetterOrDigit(cki.KeyChar))
+                {
+                    if (!userNameAccepted)
+                    {
+                        username = username + cki.KeyChar;
+                    }
+                    else
+                    {
+                        password = password + cki.KeyChar;
+                    }
+
+                }
+                else if (cki.Key == ConsoleKey.Backspace)
+                {
+                    if (!userNameAccepted)
+                    {
+                        if (username != "")
+                        {
+                            username = username.Remove(username.Length - 1);
+                        }
+                    }
+                    else
+                    {
+                        if (password != "")
+                        {
+                            password = password.Remove(password.Length - 1);
+
+                        }
+
+                    }
+
+                }
+                else if (cki.Key == ConsoleKey.Enter)
+                {
+                    if (!userNameAccepted)
+                    {
+
+                        //Check if user exits.
+
+                        userNameAccepted = true;
+                        
+                    }
+                    else
+                    {
+                        
+                        username = "";
+                        password = "";
+                        userNameAccepted = false;
+
+                        // Call next screen
+
+                    }
+
+                }
+                else if (cki.Key == ConsoleKey.Escape)
+                {
+                    Console.WriteLine("Bullen");
+                    break;
+                }
+                
+
+
+                
+
+            } while (true);
+
+
+            Console.ReadKey();
         }
 
 
