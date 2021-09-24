@@ -49,5 +49,16 @@ namespace Lab2___Butik
         }
 
 
+        public override string ToString()
+        {
+            string s = $"Username: {this.username} - Password: {this.password} - Cart: ";
+            foreach (Product product in this.cart)
+            {
+                s += ($"{product.name}, ");
+            }
+            s = s.Remove(s.Length - 2);
+            return s;
+        }
+
     }
 }

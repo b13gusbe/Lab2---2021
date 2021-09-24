@@ -16,7 +16,10 @@ namespace Lab2___Butik
 
         static void Main(string[] args) {
 
-            Customer testCustomer = new Customer("Testson", "123");
+            Customer customer1 = new BronzeCustomer("Knatte", "123");
+            Customer customer2 = new SilverCustomer("Fnatte", "321");
+            Customer customer3 = new GoldCustomer("Tjatte", "213");
+
 
             List<Product> allProducts = new List<Product>();
             List<Customer> allCustomers = new List<Customer>();
@@ -29,31 +32,34 @@ namespace Lab2___Butik
 
             string currency = "$";
 
-            Customer testCustomer2 = new GoldCustomer("test", "123");
 
-            allCustomers.Add(testCustomer);
-            allCustomers.Add(testCustomer2);
-
-
+            allCustomers.Add(customer1);
+            allCustomers.Add(customer2);
+            allCustomers.Add(customer3);
 
 
-            /*
-            List<Customer> savedCustomers = LoadCustomers();
-            allCustomers.AddRange(savedCustomers);
+            if (File.Exists(filePath)){
+                allCustomers = LoadCustomers();
+            }
+
+            
 
             foreach(Customer customer in allCustomers)
             {
+                /*
                 Console.Write($"{customer.username} : ");
                 foreach(Product product in customer.cart)
                 {
                     Console.Write($"{product.name} ");
                 }
                 Console.Write("\n");
+                */
+                Console.WriteLine($"{customer.ToString()}");
             }
 
             Console.ReadKey();
 
-            */
+            
 
 
             //Console.WriteLine(allProducts[0].ToString());
@@ -87,11 +93,11 @@ namespace Lab2___Butik
 
             //Test(allCustomers);
 
-            Test2();
+            //Test2(allCustomers);
 
-            DrawMainMenu(allCustomers, allProducts, currency);
+            DrawMainMenu(allCustomers, allProducts);
 
-
+            /*
             
             testCustomer.AddToCart(allProducts[2]);
             testCustomer.AddToCart(allProducts[2]);
@@ -103,7 +109,7 @@ namespace Lab2___Butik
             testCustomer.AddToCart(allProducts[0]);
 
             DrawCart(testCustomer, currency);
-
+            */
             //SaveCustomers(allCustomers);
 
             //drawViewCart(testCustomer, currency);
@@ -112,7 +118,7 @@ namespace Lab2___Butik
         }
 
 
-        private static void DrawMainMenu(List<Customer> allCustomers, List<Product> allProducts, string currency)
+        private static void DrawMainMenu(List<Customer> allCustomers, List<Product> allProducts)
         {
             ConsoleKeyInfo cki;
 
@@ -128,13 +134,14 @@ namespace Lab2___Butik
 
                 DrawBorders(9);
                 
+                
 
 
                 cki = Console.ReadKey();
                 if(cki.Key != ConsoleKey.D1 && cki.Key != ConsoleKey.D2 && cki.Key != ConsoleKey.D3)
                 {
                     Console.WriteLine(" Please enter one of the listed alternatives.");
-                } else if(cki.Key == ConsoleKey.D1){ DrawLogIn(allCustomers, allProducts, currency); }
+                } else if(cki.Key == ConsoleKey.D1){ Test2(allCustomers, allProducts); }
                 else if(cki.Key == ConsoleKey.D2) { Test(allCustomers); }
                 else if (cki.Key == ConsoleKey.D3) { Environment.Exit(0); }
             } while (true);
@@ -160,7 +167,7 @@ namespace Lab2___Butik
                     if (logedInCustomer.LogIn(passwordInput))
                     {
                         Console.WriteLine("Log in lyckades.");
-                        DrawLogedInMenu(allCustomers, allProducts, logedInCustomer, currency);
+                        DrawLogedInMenu(allCustomers, allProducts, logedInCustomer);
                     }
                     else { Console.WriteLine("Password is incorrect."); }
 
@@ -234,23 +241,28 @@ namespace Lab2___Butik
             
         }
 
-        private static void DrawLogedInMenu(List<Customer> allCustomers, List<Product> allProducts, Customer logedInCustomer,  string currency)
+        private static void DrawLogedInMenu(List<Customer> allCustomers, List<Product> allProducts, Customer logedInCustomer)
         {
             do
             {
                 Console.Clear();
-                Console.WriteLine(p1 + $"\n              Welcome {logedInCustomer.username}\n\n");
-                Console.WriteLine(p2 + "Please select one of the options:\n");
-                Console.WriteLine(p2 + "(1) Shop luxurios fruit");
-                Console.WriteLine(p2 + "(2) View cart");
-                Console.WriteLine(p2 + "(3) Go to checkout");
+                Console.WriteLine(p1 + $"\n                                Welcome {logedInCustomer.username}\n");
+                Console.WriteLine(p2 + "Please select one of the options:             ,--./,-.");
+                Console.WriteLine("                                                       /,-._.--~\\");
+                Console.WriteLine(p2 + "(1) Shop luxurios fruit                       __}  {");
+                Console.WriteLine(p2 + "(2) View cart                                \\`-._,-`-,");
+                Console.WriteLine(p2 + "(3) Go to checkout                            `._,._,'\n\n\n" + p1);
+
+                DrawBorders(10);
 
                 ConsoleKeyInfo cki;
+
+                string currency = "$";
 
                 do
                 {
                     cki = Console.ReadKey();
-                    if(cki.Key == ConsoleKey.D1) { DrawStore(allProducts, logedInCustomer, currency); break; }
+                    if(cki.Key == ConsoleKey.D1) { DrawStore(allCustomers, allProducts, logedInCustomer, currency); break; }
                     else if (cki.Key == ConsoleKey.D2) { DrawCart(logedInCustomer, currency); break; }
                     else if (cki.Key == ConsoleKey.D3) { DrawCheckout(logedInCustomer, currency); break; }
                     else { Console.WriteLine("Please select one of the three options."); }
@@ -260,7 +272,7 @@ namespace Lab2___Butik
             } while (true);
         }
 
-        private static void DrawStore(List<Product> allProducts, Customer logedInCustomer, string currency)
+        private static void DrawStore(List<Customer> allCustomers, List<Product> allProducts, Customer logedInCustomer, string currency)
         {
             ConsoleKeyInfo cki;
             do
@@ -280,7 +292,7 @@ namespace Lab2___Butik
                     else { Console.Write("$" + allProducts[i].Price(currency) + "#\n"); }
                     
                 }
-                Console.Write(p2 + "\n" + p2 + "(" + (allProducts.Count + 1) + ") Leave store                           (" + (allProducts.Count + 2) + ") View Cart\n\n" + p1);
+                Console.Write(p2 + "\n" + p2 + "(G)o Back                           (V)iew Cart\n\n" + p1);
                 Console.WriteLine("\nLogged in as: " + logedInCustomer.username + "                           Number of items in cart: " + logedInCustomer.CartCount() + "\n");
                 DrawBorders(6 + allProducts.Count());
                 cki = Console.ReadKey();
@@ -291,11 +303,12 @@ namespace Lab2___Butik
                     if (i > 0 && i < (allProducts.Count + 1))
                     {
                         logedInCustomer.AddToCart(allProducts[i-1]);
+                        SaveCustomers(allCustomers);
                     }
-                } else if(cki.Key == ConsoleKey.X)
+                } else if(cki.Key == ConsoleKey.G)
                 {
                     break;
-                } else if (cki.Key == ConsoleKey.C)
+                } else if (cki.Key == ConsoleKey.V)
                 {
                     DrawCart(logedInCustomer, currency);
                 }
@@ -365,7 +378,7 @@ namespace Lab2___Butik
 
                 Console.WriteLine("\n           (G)o Back                                 (B)uy Fruits\n\n" + p1);
 
-                DrawBorders(13 + 3 * logedInCustomer.cart.Count());
+                DrawBorders(13 + 3 * logedInCustomer.cart.Distinct().Count());
 
                 cki = Console.ReadKey();
                 if (cki.Key == ConsoleKey.C)
@@ -513,25 +526,25 @@ namespace Lab2___Butik
                         {
                             case "Basic":
                                 allCustomers.Add(new Customer(username, password));
-                                //SaveCustomers(allCustomers);
+                                SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
                                 Console.Write($"Customer {username} Created.");
                                 break;
                             case "Bronze":
                                 allCustomers.Add(new BronzeCustomer(username, password));
-                                //SaveCustomers(allCustomers);
+                                SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
                                 Console.Write($"Bronze customer {username} Created.");
                                 break;
                             case "Silver":
                                 allCustomers.Add(new SilverCustomer(username, password));
-                                //SaveCustomers(allCustomers);
+                                SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
                                 Console.Write($"Silver customer {username} Created.");
                                 break;
                             case "Gold":
                                 allCustomers.Add(new GoldCustomer(username, password));
-                                //SaveCustomers(allCustomers);
+                                SaveCustomers(allCustomers);
                                 Console.SetCursorPosition(10, 8);
                                 Console.Write($"Gold customer {username} Created.");
                                 break;
@@ -569,8 +582,9 @@ namespace Lab2___Butik
         }
 
 
-        public static void Test2()
+        public static void Test2(List<Customer> allCustomers, List<Product> allProducts)
         {
+            Console.Clear();
             Console.WriteLine(p1 + "\n           .-.                     Log in                    .-.");
             Console.WriteLine("          /  |                                               |  \\");
             Console.WriteLine("         |  /      Username:                                  \\  |");
@@ -578,8 +592,8 @@ namespace Lab2___Butik
             Console.WriteLine("     /.-.;\\  |\\|                                           |/|  /;.-.\\");
             Console.WriteLine("     '   |'._/ `                                           ´ \\_.'|   '");
             Console.WriteLine("         |  \\                                                 /  |");
-            Console.WriteLine("          \\  |      Go back                                   |  /");
-            Console.WriteLine("           '-'       (ESC)                                    '-'\n\n" +p1);
+            Console.WriteLine("          \\  |      Go back                                  |  /");
+            Console.WriteLine("           '-'       (ESC)                                   '-'\n\n" +p1);
 
             DrawBorders(11);
 
@@ -602,7 +616,8 @@ namespace Lab2___Butik
                 else
                 {
                     Console.SetCursorPosition(29, 5);
-                    Console.Write(password + "                  ");
+                    string hiddenPass = new string('*', password.Length);
+                    Console.Write(hiddenPass + "                  ");
                     Console.SetCursorPosition((29 + password.Length), 5);
                 }
 
@@ -642,22 +657,51 @@ namespace Lab2___Butik
                 }
                 else if (cki.Key == ConsoleKey.Enter)
                 {
+                    Customer logedInCustomer = allCustomers.Find(x => x.username == username);
+
                     if (!userNameAccepted)
                     {
+                        
 
-                        //Check if user exits.
-
-                        userNameAccepted = true;
+                        if (logedInCustomer != null)
+                        {
+                            userNameAccepted = true;
+                        }
+                        else if (username != "")
+                        {
+                            Console.SetCursorPosition(19, 7);
+                            Console.WriteLine($"The username {username} does not exist");
+                            Console.SetCursorPosition(0, 13);
+                            Console.WriteLine("Would you like to go to the create customer menu? (Y/N)");
+                            cki = Console.ReadKey();
+                            if (cki.Key == ConsoleKey.Y)
+                            {
+                                Test(allCustomers);
+                                break;
+                            }
+                            else
+                            {
+                                Console.SetCursorPosition(0, 13);
+                                Console.WriteLine("                                                       ");
+                            }
+                        }
                         
                     }
                     else
                     {
-                        
-                        username = "";
-                        password = "";
-                        userNameAccepted = false;
+                        if (logedInCustomer.LogIn(password))
+                        {
+                            username = "";
+                            password = "";
+                            userNameAccepted = false;
+                            DrawLogedInMenu(allCustomers, allProducts, logedInCustomer);
+                            break;
+                        } else
+                        {
+                            Console.SetCursorPosition(19, 7);
+                            Console.WriteLine($"The password you entered is incorrect.");
+                        }
 
-                        // Call next screen
 
                     }
 
@@ -674,8 +718,6 @@ namespace Lab2___Butik
 
             } while (true);
 
-
-            Console.ReadKey();
         }
 
 
