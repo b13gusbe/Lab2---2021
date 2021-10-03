@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab2___Butik
 {
@@ -20,7 +17,6 @@ namespace Lab2___Butik
             this.cart = new List<Product>();
         }
 
-
         public bool LogIn (string password)
         {
             if(this.password == password) { return true; }
@@ -30,7 +26,11 @@ namespace Lab2___Butik
         public void AddToCart( Product product)
         {
             this.cart.Add(product);
-            Console.WriteLine("{0} added to cart.", product.name);
+        }
+
+        public void ClearCart()
+        {
+            this.cart.Clear();
         }
 
         public int CartCount()
@@ -38,16 +38,15 @@ namespace Lab2___Butik
             return this.cart.Count;
         }
 
-        public int CartCost(string currency)
+        public double CartCost(string currency)
         {
-            int totalCost = 0;
+            double totalCost = 0;
             foreach (Product product in this.cart)
             {
                 totalCost += product.Price(currency);
             }
             return totalCost;
         }
-
 
         public override string ToString()
         {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab2___Butik
 {
@@ -10,7 +6,7 @@ namespace Lab2___Butik
     class Product
     {
         public string name { get; set; }
-        private int price { get; set; }
+        private double price { get; set; }
 
         public Product(string name, int price)
         {
@@ -18,30 +14,22 @@ namespace Lab2___Butik
             this.price = price;
         }
 
-        public override string ToString()
-        {
-            return name.ToString();
-        }
-
-        public int Price(string currency)
+        public double Price(string currency)
         {
             if (currency == "$")
             {
-                return this.price;
+                return (this.price * 1.35);
             } else if (currency == "SEK ")
             {
-                return (this.price * 10);
+                return (this.price * 11.87);
             } else if (currency == "£") 
             {
-                return (this.price * 11);
+                return this.price;
             } else
             {
                 return 0;
             }
             
         }
-
-
-
     }
 }
